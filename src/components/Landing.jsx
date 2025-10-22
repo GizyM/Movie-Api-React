@@ -52,7 +52,8 @@ const Landing = ({  }) => {
               className="search__bar--input"
               placeholder="Search Movies..."
             />
-            <button type="submit" onClick={() => onSearch()} className="search__bar--btn">
+            <button type="submit" onClick={() => onSearch()} className="search__bar--btn"
+                onKeyPress={(event) => onSearchKeyPress(event.key)}>
               Search
             </button>
           </div>
