@@ -2,7 +2,13 @@ import React from "react";
 import EmptyLogo from "../assets/undraw_void_wez2.svg";
 import { Link } from "react-router-dom";
 
-const Favorites = ({ favorites, removeItem }) => {
+const Favorites = ({ favorites, changeQuantity, removeItem }) => {
+  const total = () => {
+    let total = 0;
+    favorites.forEach((item) => {
+  
+    })
+  }
   return (
     <div id="moviess__body">
       <main id="movies__main">

@@ -16,8 +16,29 @@ function App() {
     setFavorites([...favorites, { ...movie, quantity: 1 }]);
   }
 
+  function changeQuantity(movie, quantity) {
+    setMovies(
+      movies.map((item) =>
+        item.id === movie.id
+      ? {
+        ...item, 
+        quantity: +quantity
+      }
+      :item
+      )
+    );
+  }
+
   function removeItem(item) {
     setFavorites(favorites.filter(movie => movie.id !== item.id))
+  }
+
+  function numberOfItems() {
+    let counter = 0;
+    favorites.forEach(item => {
+      counter += item.quantity
+    })
+    return counter;
   }
 
   useEffect(() => {
@@ -27,7 +48,7 @@ function App() {
   return (
     <Router>
     <div className="App">
-      <Nav />
+      <Nav numberOfItems={numberOfItems()} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies movies={movies} />} />
@@ -41,6 +62,7 @@ function App() {
             <Favorites
               movies={movies}
               favorites={favorites}
+              changeQuantity={changeQuantity}
               removeItem={removeItem}
             />
           )}
