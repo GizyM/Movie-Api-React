@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Rating = () => {
+const Rating = ({ index, movie }) => {
   return (
     <div className="movie__ratings">
       <FontAwesomeIcon icon="star" key={index} />
