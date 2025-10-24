@@ -6,7 +6,7 @@ import Rating from "../components/ui/Rating";
 import axios from "axios";
 import Loader from "../components/Loader";
 
-const MovieInfo = ({ movies, addToFavorites, favorite }) => {
+const MovieInfo = ({ movies, favorite }) => {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [movieDetails, setMovieDetails] = useState(null);
