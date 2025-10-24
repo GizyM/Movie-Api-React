@@ -1,33 +1,38 @@
 import React, { useState, useEffect } from "react";
 import Movie from "../components/ui/Movie";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Movies = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [movie, setMovie] = useState([]);
     const [error, setError] = useState('');
+    const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchMovies = async () => {
-            try {
-                const response = await fetch('https://www.omdbapi.com/?s={setMovies}&apikey=826b9a2e');
-                const data = await response.json();
-                if (data.Response === "True") {
-                    setMovies(data.Search); // Assuming the API returns a Search array
-                } else {
-                    setError(data.Error); // Set error message if no results found
-                }
-            } catch (err) {
-                setError('Failed to fetch movies. Please try again later.');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchMovies();
-    }, []); // Empty dependency array means this runs once when the component mounts
+    const searchMovie = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(
+        `https://omdbapi.com/?s=${searchTerm}&apikey=826b9a2e`
+      );
+      if (response.data.Response === "True") {
+        setMovie(response.data.Search);
+      } else {
+        setError(response.data.Error);
+        setMovie([]);
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.", err);
+    }
+    setLoading(false);
+  };
 
     if (loading) return <p>Loading...</p>;
     if (error) return <span className="red">{error}</span>;
+
 
 function filterMovies(filter) {
   console.log("filter");
@@ -47,6 +52,10 @@ function filterMovies(filter) {
   }
 }
 
+const viewDetails = (id) => {
+    navigate(`/movie/${id}`);
+  };
+
   return (
     <div id="movies__body">
       <main id="movies__main">
@@ -63,10 +72,28 @@ function filterMovies(filter) {
                     <option value="oldest">Oldest to Newest</option>
                 </select>
               </div>
-              <div className="movies">
-                {movies.map((movie) => (
-                  <Movie movie={movie} key={movies.id} />
-                ))}
+              <div className="movies__list">
+                {movie && movie.length > 0 && (
+            <div className="movies__list">
+              {movie.map((item) => (
+                <div
+                  key={item.imdbID}
+                  className="movie"
+                  onClick={() => viewDetails(item.imdbID)}
+                >
+                  <img
+                    src={
+                      item.Poster !== "N/A" ? item.Poster : "placeholder.jpg"
+                    }
+                    alt={item.Title}
+                    className="movie__poster"
+                  />
+                  <h3>{item.Title}</h3>
+                  <p>{item.Year}</p>
+                </div>
+              ))}
+            </div>
+          )}
               </div>
             </div>
           </div>

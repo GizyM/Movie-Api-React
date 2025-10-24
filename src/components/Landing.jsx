@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import UndrawMovieNight from "../assets/undraw_movie-night_pkvp.svg";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Loader from "./Loader";
 
 const Landing = () => {
@@ -11,33 +10,19 @@ const Landing = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const searchMovie = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await axios.get(
-        `https://omdbapi.com/?s=${searchTerm}&apikey=826b9a2e`
-      );
-      if (response.data.Response === "True") {
-        setMovie(response.data.Search);
-      } else {
-        setError(response.data.Error);
-        setMovie([]);
-      }
-    } catch (err) {
-      setError("Something went wrong. Please try again.", err);
-    }
-    setLoading(false);
-  };
+  setLoading(true);
+  setError(null);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      searchMovie();
+      navigate(`/movies?search=${searchTerm}`);
     }
   };
 
-  const viewDetails = (id) => {
-    navigate(`/movie/${id}`);
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      navigate(`/movies?search=${searchTerm}`);
+    }
   };
 
   return (
@@ -62,33 +47,13 @@ const Landing = () => {
             />
             <button
               type="submit"
-              onClick={searchMovie}
+              onClick={handleSearch}
               className="search__bar--btn"
             >
               Search
             </button>
           </div>
-          {movie && movie.length > 0 && (
-            <div className="movies__list">
-              {movie.map((item) => (
-                <div
-                  key={item.imdbID}
-                  className="movie"
-                  onClick={() => viewDetails(item.imdbID)}
-                >
-                  <img
-                    src={
-                      item.Poster !== "N/A" ? item.Poster : "placeholder.jpg"
-                    }
-                    alt={item.Title}
-                    className="movie__poster"
-                  />
-                  <h3>{item.Title}</h3>
-                  <p>{item.Year}</p>
-                </div>
-              ))}
-            </div>
-          )}
+          
           {loading && <Loader />}
           {error && <span className="red">{error}</span>}
           {movie && movie.length > 0 && (
