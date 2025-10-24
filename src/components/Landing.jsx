@@ -67,18 +67,33 @@ const Landing = () => {
             >
               Search
             </button>
-            {loading && <Loader />}
-            {error && <span className="red">{error}</span>}
-            {movie &&
-              movie.map((item, index) => (
-                <>
-                  <div
-                    key={index}
-                    onClick={() => viewDetails(item.imdbID)}
-                  ></div>
-                </>
-              ))}
           </div>
+          {movie && movie.length > 0 && (
+            <div className="movies__list">
+              {movie.map((item) => (
+                <div
+                  key={item.imdbID}
+                  className="movie"
+                  onClick={() => viewDetails(item.imdbID)}
+                >
+                  <img
+                    src={
+                      item.Poster !== "N/A" ? item.Poster : "placeholder.jpg"
+                    }
+                    alt={item.Title}
+                    className="movie__poster"
+                  />
+                  <h3>{item.Title}</h3>
+                  <p>{item.Year}</p>
+                </div>
+              ))}
+            </div>
+          )}
+          {loading && <Loader />}
+          {error && <span className="red">{error}</span>}
+          {movie && movie.length > 0 && (
+            <div className="movies__list">{/* movie cards here */}</div>
+          )}
           <figure className="movie__landing--wrapper">
             <img src={UndrawMovieNight} alt="" />
           </figure>
