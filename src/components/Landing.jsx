@@ -10,10 +10,8 @@ const Landing = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const body = document.querySelector("#movies__body");
 
   const searchMovie = async () => {
-    body.classList.add("show=spinner");
     setLoading(true);
     setError(null);
     try {
@@ -28,8 +26,6 @@ const Landing = () => {
       }
     } catch (err) {
       setError("Something went wrong. Please try again.", err);
-    } finally {
-      body.classList.remove("show-spinner");
     }
     setLoading(false);
   };
@@ -80,12 +76,12 @@ const Landing = () => {
                     key={index}
                     onClick={() => viewDetails(item.imdbID)}
                   ></div>
-                  <figure className="movie__landing--wrapper">
-                    <img src={UndrawMovieNight} alt="" />
-                  </figure>
                 </>
               ))}
           </div>
+          <figure className="movie__landing--wrapper">
+            <img src={UndrawMovieNight} alt="" />
+          </figure>
         </div>
       </header>
     </section>

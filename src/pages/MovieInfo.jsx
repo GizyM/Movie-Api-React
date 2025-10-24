@@ -31,9 +31,7 @@ const MovieInfo = ({ movies, favorite }) => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://www.omdbapi.com/?i=${id}&apikey=${
-            import.meta.env.VITE_APP_OMDB_API_KEY
-          }`
+          `https://www.omdbapi.com/?i=${id}&apikey=826b9a2e`
         );
         if (response.data.Response === "True") {
           setMovieDetails(response.data);
