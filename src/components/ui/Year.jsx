@@ -1,8 +1,8 @@
 import React from "react";
 
-const Year = ({ movie }) => {
+const Year = ({ movieDetails }) => {
     return (
-        <h4>{movie.Year}</h4>
+        <h4>{movieDetails.Year}</h4>
     );
 };
 

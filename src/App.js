@@ -11,7 +11,7 @@ import Favorites from "./pages/Favorites";
 function App() {
   const [movies, setMovies] = useState([]);
   const [favorites, setFavorites] = useState([]);
-
+  
   function addToFavorites(movie) {
     setFavorites([...favorites, { ...movie, quantity: 1 }]);
   }
@@ -44,6 +44,7 @@ function App() {
   useEffect(() => {
     console.log(favorites);
   }, [favorites]);
+
 
   return (
     <Router>

@@ -1,16 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Movie from "../components/ui/Movie";
 
-const Movies = ({ movies: initialMovies }) => {
-  const [movies, setMovies] = useState([initialMovies]);
+const Movies = () => {
+    const [movies, setMovies] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
+    useEffect(() => {
+        const fetchMovies = async () => {
+            try {
+                const response = await fetch('https://www.omdbapi.com/?s={setMovies}&apikey=826b9a2e');
+                const data = await response.json();
+                if (data.Response === "True") {
+                    setMovies(data.Search); // Assuming the API returns a Search array
+                } else {
+                    setError(data.Error); // Set error message if no results found
+                }
+            } catch (err) {
+                setError('Failed to fetch movies. Please try again later.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMovies();
+    }, []); // Empty dependency array means this runs once when the component mounts
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <span className="red">{error}</span>;
 
 function filterMovies(filter) {
   console.log("filter");
   if (filter === "newest") {
-      Movies.sort((a, b) => parseInt(b.Year) - parseInt(a.Year));
+    setMovies(
+      movies
+    .sort(
+      (a, b) => parseInt(b.Year) - parseInt(a.Year)
+    )
+  );
   } else if (filter === "oldest") {
-    Movies.sort((a, b) => parseInt(a.Year) - parseInt(b.Year));
+    setMovies(
+    movies
+    .sort((a, b) => parseInt(a.Year) - parseInt(b.Year)
+    )
+  );
   }
 }
 
@@ -31,7 +64,7 @@ function filterMovies(filter) {
                 </select>
               </div>
               <div className="movies">
-                {Movies.map((movie) => (
+                {movies.map((movie) => (
                   <Movie movie={movie} key={movies.id} />
                 ))}
               </div>

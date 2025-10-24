@@ -10,7 +10,7 @@ const Favorites = ({ favorites, changeQuantity, removeItem }) => {
     })
   }
   return (
-    <div id="moviess__body">
+    <div id="movies__body">
       <main id="movies__main">
         <div className="movies__container">
           <div className="row">
@@ -46,6 +46,18 @@ const Favorites = ({ favorites, changeQuantity, removeItem }) => {
                             Remove
                           </button>
                         </div>
+                      </div>
+                      <div className="favorites__quantity">
+                        <input 
+                        type="number"
+                        min={0}
+                        max={99}
+                        className="favorites__input"
+                        value={favorites.quantity}
+                        onChange={(event) => 
+                          changeQuantity(movie, event.target.value)
+                        }
+                        />
                       </div>
                     </div>
                   );

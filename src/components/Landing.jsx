@@ -1,37 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import UndrawMovieNight from "../assets/undraw_movie-night_pkvp.svg";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Loader from "./Loader";
 
-const Landing = ({  }) => {
-    let navigate = useNavigate();
-    const { id } = useParams();
-    const [movies, setMovies] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [searchId, setSearchId] = useState(id);
-    const [searchTerm, setSearchTerm] = useState([]);
+const Landing = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [movie, setMovie] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const body = document.querySelector("#movies__body");
 
-    function onSearch() {
-        fetchMovies(searchId);
+  const searchMovie = async () => {
+    body.classList.add("show=spinner");
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(
+        `https://omdbapi.com/?s=${searchTerm}&apikey=826b9a2e`
+      );
+      if (response.data.Response === "True") {
+        setMovie(response.data.Search);
+      } else {
+        setError(response.data.Error);
+        setMovie([]);
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.", err);
+    } finally {
+      body.classList.remove("show-spinner");
     }
+    setLoading(false);
+  };
 
-    async function fetchMovies(searchTerm) {
-        setLoading(true)
-        const { data } = await axios.get(`https://omdbapi.com/?s=${searchTerm}&apikey=826b9a2e`
-        );
-        setMovies(data);
-        setLoading(false);
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      searchMovie();
     }
+  };
 
-    function onSearchKeyPress(key) {
-        if (key === 'Enter') {
-            onSearch()
-        }
-    }
-
-    useEffect(() => {
-        fetchMovies();
-    }, []);
+  const viewDetails = (id) => {
+    navigate(`/movie/${id}`);
+  };
 
   return (
     <section id="landing">
@@ -49,17 +60,32 @@ const Landing = ({  }) => {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={handleKeyPress}
               className="search__bar--input"
               placeholder="Search Movies..."
             />
-            <button type="submit" onClick={() => onSearch()} className="search__bar--btn"
-                onKeyPress={(event) => onSearchKeyPress(event.key)}>
+            <button
+              type="submit"
+              onClick={searchMovie}
+              className="search__bar--btn"
+            >
               Search
             </button>
+            {loading && <Loader />}
+            {error && <span className="red">{error}</span>}
+            {movie &&
+              movie.map((item, index) => (
+                <>
+                  <div
+                    key={index}
+                    onClick={() => viewDetails(item.imdbID)}
+                  ></div>
+                  <figure className="movie__landing--wrapper">
+                    <img src={UndrawMovieNight} alt="" />
+                  </figure>
+                </>
+              ))}
           </div>
-          <figure className="movie__landing--wrapper">
-            <img src={UndrawMovieNight} alt="" />
-          </figure>
         </div>
       </header>
     </section>
