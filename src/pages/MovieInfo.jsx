@@ -4,23 +4,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Year from "../components/ui/Year";
 import Rating from "../components/ui/Rating";
 import axios from "axios";
-import Loader from "../components/Loader";
 
-const MovieInfo = ({ movies, favorite }) => {
-  const { id } = useParams();
+const MovieInfo = ({ items, favorite, item }) => {
+  const { searchTerm } = useParams();
   const [loading, setLoading] = useState(false);
   const [movieDetails, setMovieDetails] = useState(null);
   const [error, setError] = useState(null);
   const [favorites, setFavorites] = useState([]);
-  const movie = movies.find((movie) => +movie.id === +id);
+  const movie = items.find((item) => +movie.id === +item.imdbID);
 
-  function movieExistsOnFavorites() {
-    return favorite.find((movie) => movie.id === +id);
+  function itemExistsOnFavorites() {
+    return favorite.find((item) => movie.id === +item.imdbID);
   }
 
-  const addFavorite = (movie) => {
-    if (!favorites.some(fav => fav.imdbID === movie.imdbID)) {
-        setFavorites([...favorites, movie]);
+  const addFavorite = (item) => {
+    if (!favorites.some(favorite => favorite.imdbID === item.imdbID)) {
+        setFavorites([...favorites, item]);
     } else {
         alert('This movie is already in your favorites!')
     }
@@ -31,7 +30,7 @@ const MovieInfo = ({ movies, favorite }) => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://www.omdbapi.com/?i=${id}&apikey=826b9a2e`
+          `https://www.omdbapi.com/?i=${searchTerm}&apikey=826b9a2e`
         );
         if (response.data.Response === "True") {
           setMovieDetails(response.data);
@@ -46,9 +45,9 @@ const MovieInfo = ({ movies, favorite }) => {
     };
 
     fetchMovieDetails();
-  }, [id]);
+  }, [searchTerm]);
 
-if (loading) return <Loader />;
+if (loading) return <p>Loading...</p>;
 if (error) return <span className="red">{error}</span>
 
   return (
@@ -67,30 +66,30 @@ if (error) return <span className="red">{error}</span>
             <div className="movie__selected">
               <figure className="movie__selected--figure">
                 <img
-                  src={movieDetails.Poster}
+                  src={item.Poster}
                   alt=""
                   className="movie__selected--img"
                 />
               </figure>
               <div className="movie__selected--description">
-                <h2 className="movie__selected--title">{movie.Title}</h2>
-                <Rating rating={movieDetails.imdbRating} />
-                <Year year={movieDetails.Year} />
+                <h2 className="movie__selected--title">{item.Title}</h2>
+                <Rating rating={item.imdbRating} />
+                <Year year={item.Year} />
                 <div className="movie__summary">
                   <h3 className="movie__summary--title">Plot</h3>
-                  <p className="movie__summary--para">{movieDetails.Plot}</p>
-                  <p className="movie__summary--actors">{movieDetails.Actors}</p>
-                  <p className="movie__summary--director">{movieDetails.Director}</p>
-                  <p className="movie__summary--genre">{movieDetails.Genre}</p>
-                  <p className="movie__summary--boxoffice">{movieDetails.BoxOffice}</p>
-                  <p className="movie__summary--runtime">{movieDetails.Runtime}</p>
+                  <p className="movie__summary--para">{item.Plot}</p>
+                  <p className="movie__summary--actors">{item.Actors}</p>
+                  <p className="movie__summary--director">{item.Director}</p>
+                  <p className="movie__summary--genre">{item.Genre}</p>
+                  <p className="movie__summary--boxoffice">{item.BoxOffice}</p>
+                  <p className="movie__summary--runtime">{item.Runtime}</p>
                 </div>
-                {movieExistsOnFavorites() ? (
+                {itemExistsOnFavorites() ? (
                   <Link to={`/favorites`} className="movie__link">
                     <button className="btn">Check Favorites</button>
                   </Link>
                 ) : (
-                  <button className="btn" onClick={() => addFavorite(movie)}>
+                  <button className="btn" onClick={() => addFavorite(item)}>
                     Add to Favorites
                   </button>
                 )}

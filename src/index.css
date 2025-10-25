@@ -597,7 +597,7 @@ MOVIES PAGE
     align-items: flex-start;
 }
 
-.book__selected--top {
+.movie__selected--top {
     padding: 0 24px;
     margin-bottom: 8px;
     font-size: 32px;
@@ -755,6 +755,11 @@ footer {
     .img__text {
         margin: 20px 0;
     }
+    .movies__list {
+        display: flex;
+        flex-direction: row;
+    }
+    
 }
 
 @media (max-width: 768px) {
@@ -815,6 +820,6 @@ footer {
         margin-bottom: 20px;
     }
     .movie__night {
-        display: block;
+        display: flex;
     }
 }

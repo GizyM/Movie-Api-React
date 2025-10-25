@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Year from "./Year";
 
-const Movie = ({ movie }) => {
+const Movie = ({ item }) => {
   const [img, setImg] = useState();
 
   const mountedRef = useRef(true);
@@ -10,7 +10,7 @@ const Movie = ({ movie }) => {
   useEffect(() => {
     mountedRef.current = true;
     const image = new Image();
-    image.src = movie.poster;
+    image.src = item.Poster;
     image.onload = () => {
       setTimeout(() => {
         if (mountedRef.current) {
@@ -27,22 +27,22 @@ const Movie = ({ movie }) => {
     <div className="movie">
       {img ? (
         <>
-          <Link to={`/movies/${movie.id}`}>
+          <Link to={`/movie/${item.imdbID}`}>
             <figure className="movie__img--wrapper">
               <img
-                src={movie.Poster}
+                src={item.Poster}
                 alt=""
                 className="movie__img"
               />
             </figure>
           </Link>
           <div className="movie__title">
-            <Link to={`/movies/${movie.id}`} className="movie__title--link">
-              {movie.Title}
+            <Link to={`/movie/${item.imdbID}`} className="movie__title--link">
+              {item.Title}
             </Link>
           </div>
           <Year
-            year={movie.Year}
+            year={item.Year}
           />
         </>
       ) : (

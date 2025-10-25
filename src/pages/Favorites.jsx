@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Favorites = ({ favorites, changeQuantity, removeItem }) => {
   const total = () => {
-    let total = 0;
+    let favorites = 0;
     favorites.forEach((item) => {
   
     })

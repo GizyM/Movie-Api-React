@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Movie from "../components/ui/Movie";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -50,7 +51,7 @@ const Movies = () => {
     setMovies(sorted);
   };
 
-  const viewDetails = (id) => navigate(`/movie/${id}`);
+  const viewDetails = (item) => navigate(`/movie/${item.imdbID}`);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <span className="red">{error}</span>;

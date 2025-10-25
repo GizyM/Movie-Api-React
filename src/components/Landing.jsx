@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import UndrawMovieNight from "../assets/undraw_movie-night_pkvp.svg";
 import { useNavigate } from "react-router-dom";
-import Loader from "./Loader";
 
 const Landing = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [movie, setMovie] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -50,12 +46,6 @@ const Landing = () => {
               Search
             </button>
           </div>
-          
-          {loading && <Loader />}
-          {error && <span className="red">{error}</span>}
-          {movie && movie.length > 0 && (
-            <div className="movies__list">{/* movie cards here */}</div>
-          )}
           <figure className="movie__landing--wrapper">
             <img src={UndrawMovieNight} alt="" />
           </figure>

@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BlinkerLogo from "../assets/whitelogo.39850b27.png";
 import { Link } from "react-router-dom";
+
 const Nav = () => {
   function openMenu() {
     document.body.classList += " menu--open";
