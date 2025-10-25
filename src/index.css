@@ -272,6 +272,7 @@ main section {
     justify-content: space-between;
     align-items: center;
     padding: 0 24px;
+    margin-top: 20px;
 }
 
 .movies__header--title {
@@ -759,7 +760,6 @@ footer {
         display: flex;
         flex-direction: row;
     }
-    
 }
 
 @media (max-width: 768px) {

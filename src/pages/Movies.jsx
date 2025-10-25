@@ -51,7 +51,7 @@ const Movies = () => {
     setMovies(sorted);
   };
 
-  const viewDetails = (item) => navigate(`/movie/${item.imdbID}`);
+  const viewDetails = (id) => navigate(`/movie/${id}`);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <span className="red">{error}</span>;
