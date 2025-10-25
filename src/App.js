@@ -12,7 +12,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [favorites, setFavorites] = useState([]);
   
-  function addToFavorites(movie) {
+  function addFavorite(movie) {
     setFavorites([...favorites, { ...movie, quantity: 1 }]);
   }
 
@@ -54,8 +54,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies movies={movies} />} />
         <Route
-        path="/movies/:id"
-        element={<MovieInfo movies={movies} addToFavorites={addToFavorites} favorites={favorites} />}
+        path="/movies/:searchTerm"
+        element={<MovieInfo movies={movies} addFavorite={addFavorite} favorites={favorites} />}
         />
            <Route
           path="/favorites"

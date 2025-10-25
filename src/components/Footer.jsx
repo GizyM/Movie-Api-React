@@ -15,7 +15,7 @@ const Footer = () => {
                 <div className="footer__list">
                     <Link to="/" className="footer__link">Home</Link>
                     <span className="footer__link no-cursor">About</span>
-                    <Link To="/movies" className="footer__link">Movies</Link>
+                    <Link to="/movies" className="footer__link">Movies</Link>
                     <Link to="/favorites" className="footer__link">Favorites</Link>
                 </div>
                 <div className="footer__copyright">
