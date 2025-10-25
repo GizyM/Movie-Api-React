@@ -6,9 +6,10 @@ const Favorites = ({ favorites, changeQuantity, removeItem }) => {
   const total = () => {
     let favorites = 0;
     favorites.forEach((item) => {
-  
-    })
-  }
+      favorites += +((item.Poster || item.Title) * item.quantity);
+    });
+    return favorites;
+  };
   return (
     <div id="movies__body">
       <main id="movies__main">
@@ -23,25 +24,25 @@ const Favorites = ({ favorites, changeQuantity, removeItem }) => {
                 <span className="favorite__year">Year</span>
               </div>
               <div className="movie__body">
-                {favorites.map((movie) => {
+                {favorites.map((item) => {
                   return (
                     <div className="favorite__item">
                       <div className="favorite__movie">
                         <img
-                          src={movie.Poster}
+                          src={item.Poster}
                           className="favorite__movie--img"
                           alt=""
                         />
                         <div className="favorite__movie--info">
                           <span className="favorite__movie--title">
-                            {movie.Title}
+                            {item.Title}
                           </span>
                           <span className="favorite__movie--year">
-                            {movie.Year}
+                            {item.Year}
                           </span>
                           <button
                             className="favorite__movie--remove"
-                            onClick={() => removeItem(movie)}
+                            onClick={() => removeItem(item)}
                           >
                             Remove
                           </button>
@@ -53,9 +54,9 @@ const Favorites = ({ favorites, changeQuantity, removeItem }) => {
                         min={0}
                         max={99}
                         className="favorites__input"
-                        value={favorites.quantity}
+                        value={item.quantity}
                         onChange={(event) => 
-                          changeQuantity(movie, event.target.value)
+                          changeQuantity(item, event.target.value)
                         }
                         />
                       </div>
@@ -77,6 +78,14 @@ const Favorites = ({ favorites, changeQuantity, removeItem }) => {
                 </div>
               )}
             </div>
+            {favorites.length > 0 && (
+              <div className="total">
+                <div className="total__item tota">
+                  <span>Total</span>
+                  <span>{(total() * 1).toFixed(2)}</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </main>
