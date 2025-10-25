@@ -591,16 +591,17 @@ MOVIES PAGE
 }
 
 .movie__selected--description {
+    margin-top: 26px;
     width: 60%;
     padding: 16px 32px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .movie__selected--top {
     padding: 0 24px;
-    margin-bottom: 8px;
+    margin-top: 8px;
     font-size: 32px;
     color: #242424;
     display: flex;

@@ -1,29 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Year from "../components/ui/Year";
-import Rating from "../components/ui/Rating";
 import axios from "axios";
 
-const MovieInfo = ({ items, favorite, item }) => {
+const MovieInfo = ({ movies = [], addFavorite, favorites = [] }) => {
   const { searchTerm } = useParams();
   const [loading, setLoading] = useState(false);
   const [movieDetails, setMovieDetails] = useState(null);
   const [error, setError] = useState(null);
-  const [favorites, setFavorites] = useState([]);
-  const movie = items.find((item) => +movie.id === +item.imdbID);
 
   function itemExistsOnFavorites() {
-    return favorite.find((item) => movie.id === +item.imdbID);
+    return favorites.find((item) => movieDetails?.imdbID === +item.imdbID);
   }
-
-  const addFavorite = (item) => {
-    if (!favorites.some(favorite => favorite.imdbID === item.imdbID)) {
-        setFavorites([...favorites, item]);
-    } else {
-        alert('This movie is already in your favorites!')
-    }
-  };
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -66,30 +54,35 @@ if (error) return <span className="red">{error}</span>
             <div className="movie__selected">
               <figure className="movie__selected--figure">
                 <img
-                  src={item.Poster}
+                  src={movieDetails?.Poster}
                   alt=""
                   className="movie__selected--img"
                 />
               </figure>
               <div className="movie__selected--description">
-                <h2 className="movie__selected--title">{item.Title}</h2>
-                <Rating rating={item.imdbRating} />
-                <Year year={item.Year} />
+                <h2 className="movie__selected--title">{movieDetails?.Title}</h2>
+                <div className="movie__ratings">
+                  <FontAwesomeIcon icon="star" />
+                  <p className="movie__summary--rating">{movieDetails?.imdbRating}</p>
+                </div>
                 <div className="movie__summary">
-                  <h3 className="movie__summary--title">Plot</h3>
-                  <p className="movie__summary--para">{item.Plot}</p>
-                  <p className="movie__summary--actors">{item.Actors}</p>
-                  <p className="movie__summary--director">{item.Director}</p>
-                  <p className="movie__summary--genre">{item.Genre}</p>
-                  <p className="movie__summary--boxoffice">{item.BoxOffice}</p>
-                  <p className="movie__summary--runtime">{item.Runtime}</p>
+                  <p className="movie__summary--runtime">{movieDetails?.Runtime}</p>
+                  <p className="movie__summary--released">{movieDetails?.Released}</p>
+                  <p className="movie__summary--rated">{movieDetails?.Rated}</p>
+                  <h3 className="movie__summary--title">Details</h3>
+                  <p className="movie__summary--para">Plot: {movieDetails?.Plot}</p>
+                  <p className="movie__summary--actors">Actors: {movieDetails?.Actors}</p>
+                  <p className="movie__summary--director">Director: {movieDetails?.Director}</p>
+                  <p className="movie__summary--genre">Genre: {movieDetails?.Genre}</p>
+                  <p className="movie__summary--boxoffice">Box Office: {movieDetails?.BoxOffice}</p>
+                  <p className="movie__summary--awards">Awards: {movieDetails?.Awards}</p>
                 </div>
                 {itemExistsOnFavorites() ? (
                   <Link to={`/favorites`} className="movie__link">
                     <button className="btn">Check Favorites</button>
                   </Link>
                 ) : (
-                  <button className="btn" onClick={() => addFavorite(item)}>
+                  <button className="btn" onClick={() => addFavorite(movieDetails)}>
                     Add to Favorites
                   </button>
                 )}

@@ -54,7 +54,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies movies={movies} />} />
         <Route
-        path="/movies/:searchTerm"
+        path="/movie/:searchTerm"
         element={<MovieInfo movies={movies} addFavorite={addFavorite} favorites={favorites} />}
         />
            <Route
