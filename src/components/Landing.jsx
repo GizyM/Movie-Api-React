@@ -10,17 +10,14 @@ const Landing = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  setLoading(true);
-  setError(null);
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      navigate(`/movies?search=${searchTerm}`);
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      navigate(`/movies?search=${encodeURIComponent(searchTerm)}`);
     }
   };
 
-  const handleSearch = () => {
-    if (searchTerm.trim()) {
+   const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
       navigate(`/movies?search=${searchTerm}`);
     }
   };
@@ -32,7 +29,7 @@ const Landing = () => {
           <div className="header__description">
             <h1>USA's most awarded online movie platform</h1>
             <h2>
-              Search inside of the library with the
+              Search inside of the library with the{" "}
               <span className="purple"> search bar!</span>
             </h2>
           </div>
