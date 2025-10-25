@@ -80,7 +80,7 @@ const Favorites = ({ favorites, changeQuantity, removeItem }) => {
             </div>
             {favorites.length > 0 && (
               <div className="total">
-                <div className="total__item tota">
+                <div className="total__item total">
                   <span>Total</span>
                   <span>{(total() * 1).toFixed(2)}</span>
                 </div>

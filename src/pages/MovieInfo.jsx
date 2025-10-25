@@ -63,19 +63,19 @@ if (error) return <span className="red">{error}</span>
                 <h2 className="movie__selected--title">{movieDetails?.Title}</h2>
                 <div className="movie__ratings">
                   <FontAwesomeIcon icon="star" />
-                  <p className="movie__summary--rating">{movieDetails?.imdbRating}</p>
+                  <p className="movie__summary--rating">{movieDetails?.imdbRating}/10</p>
                 </div>
                 <div className="movie__summary">
-                  <p className="movie__summary--runtime">{movieDetails?.Runtime}</p>
-                  <p className="movie__summary--released">{movieDetails?.Released}</p>
-                  <p className="movie__summary--rated">{movieDetails?.Rated}</p>
+                  <p className="movie__summary--runtime"><b>Runtime: </b>{movieDetails?.Runtime}</p>
+                  <p className="movie__summary--released"><b>Release Date: </b>{movieDetails?.Released}</p>
+                  <p className="movie__summary--rated"><b>Rated: </b>{movieDetails?.Rated}</p>
                   <h3 className="movie__summary--title">Details</h3>
-                  <p className="movie__summary--para">Plot: {movieDetails?.Plot}</p>
-                  <p className="movie__summary--actors">Actors: {movieDetails?.Actors}</p>
-                  <p className="movie__summary--director">Director: {movieDetails?.Director}</p>
-                  <p className="movie__summary--genre">Genre: {movieDetails?.Genre}</p>
-                  <p className="movie__summary--boxoffice">Box Office: {movieDetails?.BoxOffice}</p>
-                  <p className="movie__summary--awards">Awards: {movieDetails?.Awards}</p>
+                  <p className="movie__summary--para"><b>Plot:</b> {movieDetails?.Plot}</p>
+                  <p className="movie__summary--actors"><b>Actors:</b> {movieDetails?.Actors}</p>
+                  <p className="movie__summary--director"><b>Director:</b> {movieDetails?.Director}</p>
+                  <p className="movie__summary--genre"><b>Genre: </b>{movieDetails?.Genre}</p>
+                  <p className="movie__summary--boxoffice"><b>Box Office: </b>{movieDetails?.BoxOffice}</p>
+                  <p className="movie__summary--awards"><b>Awards: </b> {movieDetails?.Awards}</p>
                 </div>
                 {itemExistsOnFavorites() ? (
                   <Link to={`/favorites`} className="movie__link">
