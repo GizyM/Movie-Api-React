@@ -823,4 +823,9 @@ footer {
     .movie__night {
         display: flex;
     }
+    .header__description {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
