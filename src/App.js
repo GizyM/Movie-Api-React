@@ -10,12 +10,18 @@ import Favorites from "./pages/Favorites";
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [favorites, setFavorites] = useState([]);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  const [storedFavorites, setStoredFavorites] = useState([]);
   
-  function addFavorite(movie) {
-    setFavorites([...favorites, { ...movie, quantity: 1 }]);
-  }
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favoriteMovies));
+  }, [favoriteMovies]);
 
+  useEffect(() => {
+    const localValuesGet = JSON.parse(localStorage.getItem("favorites"));
+    setStoredFavorites(localValuesGet);
+  }, [favoriteMovies]);
+  
   function changeQuantity(movie, quantity) {
     setMovies(
       movies.map((item) =>
@@ -30,39 +36,33 @@ function App() {
   }
 
   function removeItem(item) {
-    setFavorites(favorites.filter(movie => movie.id !== item.id))
-  }
-
-  function numberOfItems() {
-    let counter = 0;
-    favorites.forEach(item => {
-      counter += item.quantity
-    })
-    return counter;
+    setStoredFavorites(favoriteMovies.filter(movie => movie.id !== item.id))
   }
 
   useEffect(() => {
-    console.log(favorites);
-  }, [favorites]);
+    console.log(storedFavorites);
+  }, [storedFavorites]);
 
 
   return (
     <Router>
     <div className="App">
-      <Nav numberOfItems={numberOfItems()} />
+      <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies movies={movies} />} />
         <Route
         path="/movie/:searchTerm"
-        element={<MovieInfo movies={movies} addFavorite={addFavorite} favorites={favorites} />}
+        element={<MovieInfo movies={movies} favoriteMovies={favoriteMovies} setFavoriteMovies={setFavoriteMovies} />}
         />
            <Route
           path="/favorites"
           element={ (
             <Favorites
-              movies={movies}
-              favorites={favorites}
+            storedFavorites={storedFavorites}
+              setStoredFavorites={setStoredFavorites}
+              favoriteMovies={favoriteMovies}
+              setFavoriteMovies={setFavoriteMovies}
               changeQuantity={changeQuantity}
               removeItem={removeItem}
             />

@@ -34,9 +34,8 @@ const Nav = () => {
           </button>
           <li className="nav__icon">
             <Link to="/favorites" className="nav__link">
-              <FontAwesomeIcon icon="heart" />
+              Favorites
             </Link>
-            <span className="heart__length">1</span>
           </li>
         </ul>
         <div className="menu__backdrop">

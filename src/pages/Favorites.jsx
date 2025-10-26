@@ -2,7 +2,7 @@ import React from "react";
 import EmptyLogo from "../assets/undraw_void_wez2.svg";
 import { Link } from "react-router-dom";
 
-const Favorites = ({ favorites, changeQuantity, removeItem }) => {
+const Favorites = ({ favorites, setItems, movieDetails }) => {
   const total = () => {
     let favorites = 0;
     favorites.forEach((item) => {
@@ -10,6 +10,11 @@ const Favorites = ({ favorites, changeQuantity, removeItem }) => {
     });
     return favorites;
   };
+
+  const removeItem = (idToRemove) => {
+    setItems(prevItems => prevItems.filter(item => movieDetails?.imdbID !== idToRemove));
+  }; 
+
   return (
     <div id="movies__body">
       <main id="movies__main">
@@ -42,23 +47,11 @@ const Favorites = ({ favorites, changeQuantity, removeItem }) => {
                           </span>
                           <button
                             className="favorite__movie--remove"
-                            onClick={() => removeItem(item)}
+                            onClick={() => removeItem(movieDetails?.imdbID)}
                           >
                             Remove
                           </button>
                         </div>
-                      </div>
-                      <div className="favorites__quantity">
-                        <input 
-                        type="number"
-                        min={0}
-                        max={99}
-                        className="favorites__input"
-                        value={item.quantity}
-                        onChange={(event) => 
-                          changeQuantity(item, event.target.value)
-                        }
-                        />
                       </div>
                     </div>
                   );

@@ -3,14 +3,26 @@ import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
-const MovieInfo = ({ movies = [], addFavorite, favorites = [] }) => {
+const MovieInfo = ({ movies = [], favoriteMovies, setFavoriteMovies, Title, newFav }) => {
   const { searchTerm } = useParams();
   const [loading, setLoading] = useState(false);
   const [movieDetails, setMovieDetails] = useState(null);
   const [error, setError] = useState(null);
 
   function itemExistsOnFavorites() {
-    return favorites.find((item) => movieDetails?.imdbID === +item.imdbID);
+    return favoriteMovies.find((favItem) => +favItem.imdbID === movieDetails?.imdbID);
+  }
+
+  const isFavorite = favoriteMovies.some((movie) => movieDetails?.Title === Title);
+
+  function handleFavorites() {
+    if (isFavorite) {
+      const updatedFavorites = favoriteMovies.filter((movie) => movie.Title !== Title
+    );
+    setFavoriteMovies(updatedFavorites);
+    } else {
+      setFavoriteMovies([newFav, ...favoriteMovies]);
+    }
   }
 
   useEffect(() => {
@@ -82,7 +94,7 @@ if (error) return <span className="red">{error}</span>
                     <button className="btn">Check Favorites</button>
                   </Link>
                 ) : (
-                  <button className="btn" onClick={() => addFavorite(movieDetails)}>
+                  <button className="btn" onClick={() => handleFavorites()}>
                     Add to Favorites
                   </button>
                 )}

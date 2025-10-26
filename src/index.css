@@ -212,7 +212,7 @@ button:active {
 
 .container {
     padding: 56px 0;
-    max-width: 1200px;
+    max-width: 1500px;
 }
 
 .row {
@@ -264,7 +264,7 @@ main section {
 
 #movies__main {
     flex: 1;
-    max-width: 1200px;
+    max-width: 1600px;
 }
 
 .movies__header {
@@ -429,7 +429,7 @@ h4 {
     width: 100%;
 }
 
-.movie__rating--skeleton {
+.movie__year--skeleton {
     width: 100px;
     height: 19px;
 }
