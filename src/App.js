@@ -10,17 +10,6 @@ import Favorites from "./pages/Favorites";
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
-  const [storedFavorites, setStoredFavorites] = useState([]);
-  
-  useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favoriteMovies));
-  }, [favoriteMovies]);
-
-  useEffect(() => {
-    const localValuesGet = JSON.parse(localStorage.getItem("favorites"));
-    setStoredFavorites(localValuesGet);
-  }, [favoriteMovies]);
   
   function changeQuantity(movie, quantity) {
     setMovies(
@@ -36,7 +25,7 @@ function App() {
   }
 
   function removeItem(item) {
-    setStoredFavorites(favoriteMovies.filter(movie => movie.id !== item.id))
+    setStoredFavorites(favoriteMovies.filter(movie => movie.id !== item))
   }
 
   useEffect(() => {

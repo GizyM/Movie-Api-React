@@ -3,13 +3,6 @@ import EmptyLogo from "../assets/undraw_void_wez2.svg";
 import { Link } from "react-router-dom";
 
 const Favorites = ({ favorites, setItems, movieDetails }) => {
-  const total = () => {
-    let favorites = 0;
-    favorites.forEach((item) => {
-      favorites += +((item.Poster || item.Title) * item.quantity);
-    });
-    return favorites;
-  };
 
   const removeItem = (idToRemove) => {
     setItems(prevItems => prevItems.filter(item => movieDetails?.imdbID !== idToRemove));
@@ -71,14 +64,6 @@ const Favorites = ({ favorites, setItems, movieDetails }) => {
                 </div>
               )}
             </div>
-            {favorites.length > 0 && (
-              <div className="total">
-                <div className="total__item total">
-                  <span>Total</span>
-                  <span>{(total() * 1).toFixed(2)}</span>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </main>

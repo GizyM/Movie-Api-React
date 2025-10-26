@@ -10,19 +10,7 @@ const MovieInfo = ({ movies = [], favoriteMovies, setFavoriteMovies, Title, newF
   const [error, setError] = useState(null);
 
   function itemExistsOnFavorites() {
-    return favoriteMovies.find((favItem) => +favItem.imdbID === movieDetails?.imdbID);
-  }
-
-  const isFavorite = favoriteMovies.some((movie) => movieDetails?.Title === Title);
-
-  function handleFavorites() {
-    if (isFavorite) {
-      const updatedFavorites = favoriteMovies.filter((movie) => movie.Title !== Title
-    );
-    setFavoriteMovies(updatedFavorites);
-    } else {
-      setFavoriteMovies([newFav, ...favoriteMovies]);
-    }
+    return Favorites.find(movie => movie.id === +movieDetails?.id)
   }
 
   useEffect(() => {
@@ -94,7 +82,7 @@ if (error) return <span className="red">{error}</span>
                     <button className="btn">Check Favorites</button>
                   </Link>
                 ) : (
-                  <button className="btn" onClick={() => handleFavorites()}>
+                  <button className="btn" onClick={() => alert(`haven't gotten around to this :()`)}>
                     Add to Favorites
                   </button>
                 )}
