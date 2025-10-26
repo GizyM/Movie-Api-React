@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
-const MovieInfo = ({ movies = [], favoriteMovies, setFavoriteMovies, Title, newFav }) => {
+const MovieInfo = ({ movies = [], favoriteMovies, setFavoriteMovies, Title, newFav}) => {
   const { searchTerm } = useParams();
   const [loading, setLoading] = useState(false);
   const [movieDetails, setMovieDetails] = useState(null);
