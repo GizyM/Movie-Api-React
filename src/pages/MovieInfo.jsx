@@ -8,9 +8,14 @@ const MovieInfo = ({ movies = [], favoriteMovies, setFavoriteMovies, Title, newF
   const [loading, setLoading] = useState(false);
   const [movieDetails, setMovieDetails] = useState(null);
   const [error, setError] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+
+  function addToFavorites(movie) {
+    addToFavorites(movie);
+  }
 
   function itemExistsOnFavorites() {
-    return Favorites.find(movie => movie.id === +movieDetails?.id)
+    return favoriteMovies.find(movie => movie.id === +movieDetails?.id)
   }
 
   useEffect(() => {
@@ -82,7 +87,7 @@ if (error) return <span className="red">{error}</span>
                     <button className="btn">Check Favorites</button>
                   </Link>
                 ) : (
-                  <button className="btn" onClick={() => alert(`haven't gotten around to this :()`)}>
+                  <button className="btn" onClick={() => alert(`haven't gotten around to this :( )`)}>
                     Add to Favorites
                   </button>
                 )}

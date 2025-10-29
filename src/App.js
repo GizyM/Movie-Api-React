@@ -10,6 +10,8 @@ import Favorites from "./pages/Favorites";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  const [storedFavorites, setStoredFavorites] = useState([]);
   
   function changeQuantity(movie, quantity) {
     setMovies(
