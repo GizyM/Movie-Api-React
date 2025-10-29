@@ -370,7 +370,7 @@ MOVIES
     flex-wrap: wrap;
 }
 
-.movie-list {
+.movies__list {
     display: flex;
     flex-wrap: wrap;
 }
@@ -759,7 +759,7 @@ footer {
     }
     .movies__list {
         display: flex;
-        flex-direction: row;
+        flex-wrap: wrap;
     }
 }
 
