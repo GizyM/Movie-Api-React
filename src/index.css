@@ -293,7 +293,7 @@ main section {
     justify-content: flex-end;
     align-items: center;
     margin-bottom: 20px;
-    margin-left: 200px;
+    margin: 0 auto;
 }
 
 .search__bar--input {
@@ -761,6 +761,15 @@ footer {
         display: flex;
         flex-wrap: wrap;
     }
+    .search__bar {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .search__bar {
+        margin-bottom: 20px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -776,6 +785,9 @@ footer {
     }
     .movie__selected--description {
         width: 100%;
+    }
+    .search__bar {
+        margin-bottom: 20px;
     }
 }
 
@@ -824,6 +836,26 @@ footer {
         display: flex;
     }
     .header__description {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 500px) {
+    .header__description {
+        flex-direction: column;
+    }
+    select {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .movies__list {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .movie__selected--figure {
         display: flex;
         align-items: center;
         justify-content: center;
