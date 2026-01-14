@@ -25,7 +25,7 @@ const Nav = () => {
             </Link>
           </li>
           <li className="nav__list">
-            <Link to="/movies" className="nav__link">
+            <Link to="#" className="nav__link">
               Movies
             </Link>
           </li>

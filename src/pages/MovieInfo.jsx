@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
@@ -9,6 +9,7 @@ const MovieInfo = ({ movies = [], favoriteMovies, setFavoriteMovies, Title, newF
   const [movieDetails, setMovieDetails] = useState(null);
   const [error, setError] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const navigate = useNavigate();
 
   function addToFavorites(movie) {
     addToFavorites(movie);
@@ -49,10 +50,10 @@ if (error) return <span className="red">{error}</span>
         <div className="movies__container">
           <div className="row">
             <div className="movie__selected--top">
-              <Link to="/movies" className="movie__link">
+              <button onClick={() => navigate(-1)} className="movie__link">
                 <FontAwesomeIcon icon="arrow-left" />
-              </Link>
-              <Link to="/movies" className="movie__link">
+              </button>
+              <Link to="/" className="movie__link">
                 <h2 className="movie__selected--title--top">Movies</h2>
               </Link>
             </div>

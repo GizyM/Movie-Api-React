@@ -51,7 +51,10 @@ const Movies = () => {
     setMovies(sorted);
   };
 
-  const viewDetails = (id) => navigate(`/movie/${id}`);
+const viewDetails = (id) => {
+  const qs = searchTerm ? `?search=${encodeURIComponent(searchTerm)}` : "";
+  navigate(`/movie/${id}${qs}`);
+};
 
   if (loading) return <p>Loading...</p>;
   if (error) return <span className="red">{error}</span>;
